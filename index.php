@@ -1,6 +1,3 @@
-<?php include("company/templates/header.php")?>
+<?php include("templates/header.php")?>
 
-<?php include("company/templates/footer.php")?>
-
-
-
+<?php include("templates/footer.php")?>

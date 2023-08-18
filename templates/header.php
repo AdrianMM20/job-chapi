@@ -1,5 +1,5 @@
 <?php 
-    $url_base = "http://localhost/job-chapi/company/";
+    $url_base = "http://localhost/job-chapi/";
 ?>
 
 <!doctype html>
@@ -23,9 +23,10 @@
         <div class="nav navbar-nav">
             <a class="nav-item nav-link active" href="http://localhost/job-chapi/" aria-current="page">JOB CHAPI <span class="visually-hidden">(current)</span></a>
             <a class="nav-item nav-link" href="<?php echo $url_base;?>sections/publices/index.php">publicaciones</a>
-            <a class="nav-item nav-link" href="#">perfil</a>
-            <a class="nav-item nav-link" href="#">cerrar sesión</a>
+            <a class="nav-item nav-link" href="<?php echo $url_base;?>sections/perfil/index.php">perfil</a>
+            <a class="nav-item nav-link" href="<?php echo $url_base;?>login.php">cerrar sesión</a>
         </div>
     </nav>
   </header>
   <main class="container">
+  </br>
