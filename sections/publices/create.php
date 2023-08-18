@@ -1,5 +1,7 @@
 <?php 
+
 include("../../dbjob.php");
+include("../../templates/header.php");
 
 if($_POST){
     
@@ -10,7 +12,7 @@ if($_POST){
 
     $pago_d=floatval($pago);
     $jornal=intval($jornada);
-    $company=1;
+    $company=$_SESSION['id_user'];
 
     $sql=$pdo->prepare("INSERT INTO jobs (name,descrip,pago,times,id_com) 
                         VALUES (:name,:descrip,:pago,:jornada,:company);");
@@ -25,7 +27,6 @@ if($_POST){
     header("Location: index.php");
 }
 
-include("../../templates/header.php")
 ?>
 
 <div class="card">

@@ -1,5 +1,34 @@
 <?php 
-    include("./dbjob.php");
+  include("./dbjob.php");
+
+  session_start();
+
+  if($_POST){
+    
+    $email=(isset($_POST['email']))?$_POST['email']:"";
+    $pass=(isset($_POST['password']))?$_POST['password']:"";
+
+    $sql=$pdo->prepare("SELECT *,
+                        (SELECT COUNT(*) FROM users WHERE email = :email AND pass = :pass) AS n_user
+                        FROM users
+                        WHERE email = :email AND pass = :pass;");
+    $sql->bindParam(":email",$email);
+    $sql->bindParam(":pass",$pass);
+    $sql->execute();
+    $r_user=$sql->fetch(PDO::FETCH_LAZY);
+
+    if($r_user['n_user']>0){
+
+      $_SESSION['id_user']=$r_user['id'];
+      $_SESSION['usuario']=$r_user['name'];
+      $_SESSION['logeo']=true;
+      header("location:index.php");
+
+    } else {
+      $msn="Error: email o password incorrectos";
+    }
+  }
+
 ?>
 
 <!doctype html>
@@ -28,11 +57,28 @@
 
             </div>
             <div class="col-4">
+                <br/><br/>
+
+                <?php if(isset($msn)){?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong><?php echo $msn;?></strong>
+                </div>
+                <?php }?>
+
                 <div class="card">
                     <div class="card-header">
                         Login
                     </div>
                     <div class="card-body">
+                        
+                        <script>
+                          var alertList = document.querySelectorAll('.alert');
+                          alertList.forEach(function (alert) {
+                            new bootstrap.Alert(alert)
+                          })
+                        </script>
+
                         <form action="" method="post">
                             <div class="mb-3">
                               <label for="email" class="form-label">Email</label>
@@ -46,7 +92,7 @@
                                 class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="">
                             </div>
 
-                            <a name="" id="" class="btn btn-primary" href="http://localhost/job-chapi/" role="button">Login</a>
+                            <input name="" id="" class="btn btn-primary" type="submit" value="ingresar">
                             <a name="" id="" class="btn btn-danger" href="#" role="button">register</a>
 
                         </form>

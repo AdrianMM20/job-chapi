@@ -8,6 +8,7 @@ CREATE TABLE users
 	lastname VARCHAR(200) NOT NULL,
 	birthday DATE NOT NULL,
 	email varchar(200) not null,
+    pass varchar(200) not null,
     yeard INT NOT NULL,
     register DATETIME DEFAULT CURRENT_TIMESTAMP,
 	tipe INT NOT NULL
@@ -39,10 +40,17 @@ ADD FOREIGN KEY (id_com) REFERENCES company(id);
 
 -- comentario
 
-insert into users (name,lastname,birthday,email,yeard,tipe) values ('a','b','a@gmail.com','2000-01-20',20,1);
+insert into users (name,lastname,email,pass,birthday,yeard,tipe) values ('a','b','a@gmail.com','123','2000-01-20',20,1);
 insert into company (name,activity,descrip,id_user) values ('a s.a.c','comida','venta de comida',1);
 insert into jobs (name,descrip,pago,times,id_com) values ('vendedor','vender alimentos',150.5,1,1);
 
 select * from users;
 select * from company;
-select * from jobs
+select * from jobs;
+
+SELECT * , count(*) AS n_user FROM users WHERE email='a' and pass='123';
+
+SELECT *,
+    (SELECT COUNT(*) FROM users WHERE email = 'a@gmail.com' AND pass = '123') AS n_user
+FROM users
+WHERE email = 'a@gmail.com' AND pass = '123';

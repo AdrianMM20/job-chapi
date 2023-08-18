@@ -1,5 +1,10 @@
 <?php 
+    session_start();
     $url_base = "http://localhost/job-chapi/";
+
+    if(!isset($_SESSION['usuario'])){
+      header("location:". $url_base ."login.php");
+    }
 ?>
 
 <!doctype html>
@@ -24,7 +29,7 @@
             <a class="nav-item nav-link active" href="http://localhost/job-chapi/" aria-current="page">JOB CHAPI <span class="visually-hidden">(current)</span></a>
             <a class="nav-item nav-link" href="<?php echo $url_base;?>sections/publices/index.php">publicaciones</a>
             <a class="nav-item nav-link" href="<?php echo $url_base;?>sections/perfil/index.php">perfil</a>
-            <a class="nav-item nav-link" href="<?php echo $url_base;?>login.php">cerrar sesión</a>
+            <a class="nav-item nav-link" href="<?php echo $url_base;?>exit.php">cerrar sesión</a>
         </div>
     </nav>
   </header>
